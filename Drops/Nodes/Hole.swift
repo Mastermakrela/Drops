@@ -8,12 +8,34 @@
 
 import SpriteKit
 
+enum HoleType {
+    case win
+    case lose
+    case level
+    case other
+}
+
 class Hole: SKSpriteNode {
     
     // Properties
     private var imageName = "hole"
     private var defaultSize = CGSize(width: 45, height: 45)
     private var physicRadius: CGFloat = 7.5
+    
+    public var type: HoleType = .other
+    override var name: String? {
+        didSet {
+            super.name = self.name
+            
+            if name?.lowercased().range(of: "win") != nil {
+                self.type = .win
+            } else if name?.lowercased().range(of: "lose") != nil {
+                self.type = .lose
+            } else {
+                self.type = .other
+            }
+        }
+    }
     
     // Initalizers
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
@@ -45,7 +67,6 @@ class Hole: SKSpriteNode {
         self.physicsBody!.affectedByGravity = false
         self.physicsBody!.isDynamic = false
         self.physicsBody!.usesPreciseCollisionDetection = true
-        //self.physicsBody?.pinned = true
         
         // Default BitMasks
         self.physicsBody!.categoryBitMask = ContactCategory.Hole

@@ -8,87 +8,63 @@
 
 import SpriteKit
 import GameplayKit
-import CoreMotion
-
 
 class GameScene: PrototypeScene {
+    
+    //MARK: - Properties
+    static let numberOfLevels = 10
+    static var startlevel = 0
+    var currentLevel = 0
+    var levelsStateMachine: GKStateMachine!
     
     //TODO
     //MARK: - Initializers
     override init(size: CGSize) {
         super.init(size: size)
+        currentLevel = GameScene.startlevel
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        currentLevel = GameScene.startlevel
     }
     
     // Main Logic
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-
         
-//        // Get Ball node
-//        ball = childNode(withName: EntitiesNames.Ball) as! SKSpriteNode
-//        ball.physicsBody?.categoryBitMask = ContactCategory.Ball
-//        ball.physicsBody?.collisionBitMask = PhysicsCategory.ball
+        // Creates and adds states to the state machine.
+        levelsStateMachine = GKStateMachine(states: [
+            PlayingState(scene: self)
+            ])
         
-        /*
-         // Setup all Holes
-         setupHoles()
-         */
+        levelsStateMachine.enter(PlayingState.self)
         
-//        // Creates and adds states to the state machine.
-//        stateMachine = GKStateMachine(states: [
-//            MenuState(game: self),
-//            GameState(game: self),
-//            PausedState(game: self),
-//            GameOverState(game: self)
-//            ])
-        
-        // Tells the state machine to enter the menu state.
-        stateMachine.enter(MenuState.self)
-        
-        //DEBUG
-        stateMachine.enter(GameState.self)
     }
     
-//    func didBegin(_ contact: SKPhysicsContact) {
-//        var firstBody: SKPhysicsBody
-//        var secondBody: SKPhysicsBody
-//
-//        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-//            firstBody = contact.bodyA
-//            secondBody = contact.bodyB
-//        } else {
-//            firstBody = contact.bodyB
-//            secondBody = contact.bodyA
-//        }
-//
-//        if firstBody.categoryBitMask == ContactCategory.Ball && secondBody.categoryBitMask == ContactCategory.Hole {
-//            print(secondBody.node?.name ?? "HUI")
-//
-//            if let s = stateMachine.currentState as? GameState {
-//                s.removeBall()
-//            }
-//        }
-//
-//    }
+    func goToNextLevel() {
+        currentLevel += 1
+        levelsStateMachine.enter(PlayingState.self)
+    }
     
-    override func twoBodiesTouched(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
-        if firstBody.categoryBitMask == ContactCategory.Ball && secondBody.categoryBitMask == ContactCategory.Hole {
-            print(secondBody.node?.name ?? "HUI")
-            
-            if let s = stateMachine.currentState as? GameState {
-                s.removeBall()
+    func goToMenu() {
+        currentLevel = 0
+        if let scene = GKScene(fileNamed: "MenuScene") {
+            if let sceneNode = scene.rootNode as! MenuScene? {
+                sceneNode.scaleMode = .aspectFill
+                
+                mySKView!.presentScene(sceneNode, transition: SKTransition.fade(withDuration: 1))
             }
         }
     }
     
+    //MARK: - Update function
+    override func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
+        
+        //Update state machine
+        levelsStateMachine.update(deltaTime: currentTime)
+    }
     
     
-//    override func update(_ currentTime: TimeInterval) {
-//        
-//
-//    }
 }

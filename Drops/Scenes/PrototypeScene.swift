@@ -25,22 +25,24 @@ struct PhysicsCategory {
     static let hole : UInt32 = 0
 }
 
-class PrototypeScene: SKScene, SKPhysicsContactDelegate, requiredFuncs {
+class PrototypeScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: - Properties
     var mySKView: SKView? = nil
-    let motionMenager = CMMotionManager()
-    var stateMachine: GKStateMachine! // Needed for game states
+    private let motionMenager = CMMotionManager()
     
     //Ball with initalizer
     public lazy var ball: Ball? = {
         for child in children {
             if child is Ball {
+                self.motionMenager.startDeviceMotionUpdates()
+                self.motionMenager.deviceMotionUpdateInterval = 1.0/30.0
                 return child as? Ball
             }
         }
         return nil
     }()
+    
     
     //MARK: - Initializers
     override init(size: CGSize) {
@@ -64,15 +66,28 @@ class PrototypeScene: SKScene, SKPhysicsContactDelegate, requiredFuncs {
         borderBody.friction = 0
         self.physicsBody = borderBody
         
+        //DEBUG
+        setupHoles()
         
-        // Creates and adds states to the state machine.
-        stateMachine = GKStateMachine(states: [
-            MenuState(game: self),
-            GameState(game: self),
-            PausedState(game: self),
-            GameOverState(game: self)
-            ])
-        
+    }
+    
+    //DEBUG
+    func setupHoles() {
+        for child in children {
+            if child is Hole {
+                let childPos = child.position
+                let childName = child.name
+                child.removeFromParent()
+                
+                let h = Hole()
+                h.position = childPos
+                h.name = childName
+                addChild(h)
+                
+                child.removeAllChildren()
+                child.removeFromParent()
+            }
+        }
     }
     
     //MARK: - Contact Delegate
@@ -98,7 +113,7 @@ class PrototypeScene: SKScene, SKPhysicsContactDelegate, requiredFuncs {
     //MARK: - Update function
     override func update(_ currentTime: TimeInterval) {
         //Update state machine
-        stateMachine.update(deltaTime: currentTime)
+        //stateMachine.update(deltaTime: currentTime)
         
         // Check if this scene contains ball
         if ball != nil {
@@ -133,8 +148,4 @@ class PrototypeScene: SKScene, SKPhysicsContactDelegate, requiredFuncs {
     }
     
     
-}
-
-protocol requiredFuncs {
-    func twoBodiesTouched(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody)
 }
