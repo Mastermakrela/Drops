@@ -11,22 +11,22 @@ import SpriteKit
 class Wall: SKSpriteNode {
     
     // Properties
-    private var imageName = ""
+    private var imageName = "MetalTexture"
     
     // Initalizers
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
-        
-        self.color = UIColor.blue
-        
+        let img = UIImage(named: imageName)
+        super.init(texture: SKTexture(image: img!), color: color, size: size)
+        self.zPosition = 0
         setupPhysics()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.color = UIColor.blue
-        
+        let img = UIImage(named: imageName)
+        self.texture = SKTexture(image: img!)
+        self.zPosition = 0
         setupPhysics()
     }
     
@@ -40,8 +40,8 @@ class Wall: SKSpriteNode {
         
         physicsBody!.restitution = 0.0
         physicsBody!.friction = 0.0
-        physicsBody?.linearDamping = 0.0
-        physicsBody?.angularDamping = 0.0
+        physicsBody!.linearDamping = 0.0
+        physicsBody!.angularDamping = 0.0
         
     }
     

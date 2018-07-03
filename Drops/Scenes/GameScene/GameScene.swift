@@ -15,9 +15,7 @@ class GameScene: PrototypeScene {
     static let numberOfLevels = 10
     static var startlevel = 0
     var currentLevel = 0
-    var levelsStateMachine: GKStateMachine!
     
-    //TODO
     //MARK: - Initializers
     override init(size: CGSize) {
         super.init(size: size)
@@ -33,22 +31,17 @@ class GameScene: PrototypeScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         
-        // Creates and adds states to the state machine.
-        levelsStateMachine = GKStateMachine(states: [
-            PlayingState(scene: self)
-            ])
-        
-        levelsStateMachine.enter(PlayingState.self)
+        preseentScene()
         
     }
     
     func goToNextLevel() {
         currentLevel += 1
-        levelsStateMachine.enter(PlayingState.self)
+        preseentScene()
     }
     
     func goToMenu() {
-        currentLevel = 0
+        GameScene.startlevel = 0
         if let scene = GKScene(fileNamed: "MenuScene") {
             if let sceneNode = scene.rootNode as! MenuScene? {
                 sceneNode.scaleMode = .aspectFill
@@ -58,13 +51,25 @@ class GameScene: PrototypeScene {
         }
     }
     
-    //MARK: - Update function
-    override func update(_ currentTime: TimeInterval) {
-        super.update(currentTime)
+    func preseentScene(){
+        let lvl = currentLevel
+        let file = "Level_\(lvl)"
         
-        //Update state machine
-        levelsStateMachine.update(deltaTime: currentTime)
+        if let scene = GKScene(fileNamed: file) {
+            if let sceneNode = scene.rootNode as! LevelPrototype? {
+                sceneNode.scaleMode = .aspectFill
+                
+                sceneNode.gameScene = self
+                
+                mySKView!.presentScene(sceneNode, transition: SKTransition.fade(withDuration: 1.5))
+            }
+        }
     }
+    
+    //MARK: - Update function
+//    override func update(_ currentTime: TimeInterval) {
+//        super.update(currentTime)
+//    }
     
     
 }

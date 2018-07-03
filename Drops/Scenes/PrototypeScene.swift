@@ -66,26 +66,42 @@ class PrototypeScene: SKScene, SKPhysicsContactDelegate {
         borderBody.friction = 0
         self.physicsBody = borderBody
         
-        //DEBUG
+        //Setups
+        setupWalls()
         setupHoles()
         
     }
     
-    //DEBUG
+    //MARK: - Setups
+    func setupWalls() {
+        for child in children {
+            if child is Wall {
+                let childPos = child.position
+                let childName = child.name
+                let childSize = child.frame.size
+                child.removeFromParent()
+                child.removeAllChildren()
+                
+                let w = Wall(texture: nil, color: UIColor.blue, size: childSize)
+                w.position = childPos
+                w.name = childName
+                addChild(w)
+            }
+        }
+    }
+    
     func setupHoles() {
         for child in children {
             if child is Hole {
                 let childPos = child.position
                 let childName = child.name
                 child.removeFromParent()
+                child.removeAllChildren()
                 
                 let h = Hole()
                 h.position = childPos
                 h.name = childName
                 addChild(h)
-                
-                child.removeAllChildren()
-                child.removeFromParent()
             }
         }
     }
