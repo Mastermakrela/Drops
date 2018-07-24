@@ -36,11 +36,11 @@ class LevelSelection: PrototypeScene {
     }
     
     //MARK: -
-    override func didMove(to view: SKView) {
-        
-        super.didMove(to: view)
-        
-    }
+//    override func didMove(to view: SKView) {
+//
+//        super.didMove(to: view)
+//        
+//    }
     
     override func setupHoles() {
         var pos = CGPoint(x: (-self.size.width/2) + holesDistance/2, y: 0)

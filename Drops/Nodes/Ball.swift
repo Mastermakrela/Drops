@@ -12,8 +12,14 @@ class Ball: SKSpriteNode {
     
     // Properties
     private let ballRadius: CGFloat = 20.0
-    private var imageName = "ball"
-    //private var imageName = "FB_Hedgehog"
+    private var imageName: String = {
+        if let kek = UserDefaults.standard.dictionary(forKey: "settings") {
+            if (kek["IgelBall"] as! Bool) {
+                return "FB_Hedgehog"
+            }
+        }
+        return "ball"
+    }()
     
     //MARK: - Initalizers
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {

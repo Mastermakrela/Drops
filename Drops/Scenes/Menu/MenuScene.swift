@@ -17,9 +17,14 @@ struct HoleDestination {
 
 class MenuScene: PrototypeScene {
     
+    //TODO: Delete
+    //MARK: - Properties
+    //var gameViewController: GameViewController? = nil
+    
     // Main Logic
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        
     }
     
     override func twoBodiesTouched(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody) {
@@ -52,6 +57,13 @@ class MenuScene: PrototypeScene {
                 break
             case HoleDestination.settings:
                 print("Going to Settings")
+                
+                
+                NotificationCenter.default.post(name: NotificationNames.goToSettings, object: nil)
+                
+                self.removeFromParent()
+                self.view!.presentScene(nil)
+                
                 break
             default:
                 break

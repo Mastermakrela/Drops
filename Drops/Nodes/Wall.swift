@@ -17,7 +17,9 @@ class Wall: SKSpriteNode {
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         let img = UIImage(named: imageName)
         super.init(texture: SKTexture(image: img!), color: color, size: size)
+        
         self.zPosition = 0
+        
         setupPhysics()
     }
     
@@ -26,7 +28,9 @@ class Wall: SKSpriteNode {
         
         let img = UIImage(named: imageName)
         self.texture = SKTexture(image: img!)
+        
         self.zPosition = 0
+        
         setupPhysics()
     }
     
@@ -42,7 +46,6 @@ class Wall: SKSpriteNode {
         physicsBody!.friction = 0.0
         physicsBody!.linearDamping = 0.0
         physicsBody!.angularDamping = 0.0
-        
     }
     
 }

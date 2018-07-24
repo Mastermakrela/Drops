@@ -44,6 +44,8 @@ class Hole: SKSpriteNode {
         
         super.init(texture: SKTexture(image: img!), color: color, size: defaultSize)
         
+        self.zPosition = 1
+        
         setupPhysics()
     }
     
@@ -52,6 +54,8 @@ class Hole: SKSpriteNode {
         img = img?.resizeImageWith(newSize: defaultSize)
         
         super.init(coder: aDecoder)
+        
+        self.zPosition = 1
         
         self.size = defaultSize
         self.texture = SKTexture(image: img!)

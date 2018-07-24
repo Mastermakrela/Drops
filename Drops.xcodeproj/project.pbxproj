@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1105A8CE20F2915400418958 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1105A8CD20F2915400418958 /* SettingsViewController.swift */; };
 		1107E7BD20B6B0610007446D /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1107E7BC20B6B0610007446D /* MenuScene.sks */; };
 		11170ABB20B5C15900332CA2 /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11170ABA20B5C15900332CA2 /* Hole.swift */; };
 		11455D8820C7284C00B8FB3E /* UIImage_Extesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11455D8720C7284C00B8FB3E /* UIImage_Extesion.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1105A8CD20F2915400418958 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1107E7BC20B6B0610007446D /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
 		11170ABA20B5C15900332CA2 /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
 		11455D8720C7284C00B8FB3E /* UIImage_Extesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage_Extesion.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				11AA9D4020B31C5A00C148C1 /* Assets.xcassets */,
 				11AA9D4220B31C5A00C148C1 /* LaunchScreen.storyboard */,
 				11455D8720C7284C00B8FB3E /* UIImage_Extesion.swift */,
+				11C8128421036DB700BFC068 /* Settings */,
 			);
 			path = "Supproting Files";
 			sourceTree = "<group>";
@@ -167,6 +170,14 @@
 				1107E7BB20B6B0310007446D /* Scenes */,
 			);
 			path = Drops;
+			sourceTree = "<group>";
+		};
+		11C8128421036DB700BFC068 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1105A8CD20F2915400418958 /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		11D10A1420CFC76A00E9FB37 /* LevelsScenes */ = {
@@ -286,6 +297,7 @@
 				11AA9D3C20B31C5900C148C1 /* GameViewController.swift in Sources */,
 				1177D69420C5D5A80002E88B /* MenuScene.swift in Sources */,
 				11AA9D3420B31C5900C148C1 /* AppDelegate.swift in Sources */,
+				1105A8CE20F2915400418958 /* SettingsViewController.swift in Sources */,
 				11898DB920D1626D00612B5A /* PlayingState.swift in Sources */,
 				11455D8820C7284C00B8FB3E /* UIImage_Extesion.swift in Sources */,
 			);

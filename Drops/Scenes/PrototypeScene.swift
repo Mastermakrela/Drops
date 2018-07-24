@@ -76,16 +76,22 @@ class PrototypeScene: SKScene, SKPhysicsContactDelegate {
     func setupWalls() {
         for child in children {
             if child is Wall {
-                let childPos = child.position
-                let childName = child.name
-                let childSize = child.frame.size
-                child.removeFromParent()
-                child.removeAllChildren()
+                if let ch = child as? Wall {
+                    let childPos = ch.position
+                    let childName = ch.name
+                    let childSize = ch.size
+                    let childRotation = ch.zRotation
+                    ch.removeFromParent()
+                    ch.removeAllChildren()
+                    
+                    let w = Wall(texture: nil, color: UIColor.blue, size: childSize)
+                    w.zRotation = childRotation
+                    w.position = childPos
+                    w.name = childName
+                    addChild(w)
+                }
                 
-                let w = Wall(texture: nil, color: UIColor.blue, size: childSize)
-                w.position = childPos
-                w.name = childName
-                addChild(w)
+                
             }
         }
     }
@@ -161,6 +167,9 @@ class PrototypeScene: SKScene, SKPhysicsContactDelegate {
                 ball!.physicsBody!.velocity = CGVector(dx: ball!.physicsBody!.velocity.dx, dy: ball!.physicsBody!.velocity.dy-steps)
             }
         }
+        
+        //DEBUG
+        //print(ball!.physicsBody?.velocity)
     }
     
     
